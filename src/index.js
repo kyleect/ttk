@@ -46,9 +46,17 @@ export default function factory (options = {}) {
  * @param {any[]} keys
  * @returns {function}
  */
-function template (strings, ...keys) {
-  const binding = Object.assign(this.binding, { strings, keys });
-  return render.bind({ binding });
+export function template (strings, ...keys) {
+  if (typeof strings === 'undefined') {
+    throw new Error('You must use template with template literal');
+  }
+
+  try {
+    const binding = Object.assign(this.binding, { strings, keys });
+    return render.bind({ binding });
+  } catch (e) {
+    throw new Error(`You must bind template function if not using factory`);
+  }
 }
 
 /**
@@ -56,8 +64,9 @@ function template (strings, ...keys) {
  * Render template to string using context data
  * @param {Object} context - Data to render in the template`
  */
-function render (context = {}) {
+export function render (context = {}) {
   const { strings, keys, keyPrefix, valueFns, renderFns } = this.binding;
+
   /**
    * Raw rendered string without middleware functions ran
    */
