@@ -7,7 +7,7 @@ import defaultOptions from './defaultOptions';
  * @param {(() => string)[]} renderFns - Render middleware functions
  * @param {string} keyPrefix - String prefix for keys in template
  */
-export default function taggedTemplateFactory (options = {}) {
+export default function factory (options = {}) {
   const mergeMiddleware = options.mergeMiddleware || defaultOptions.mergeMiddleware;
   const keyPrefix = options.keyPrefix || defaultOptions.keyPrefix;
   let valueFns;
@@ -32,63 +32,66 @@ export default function taggedTemplateFactory (options = {}) {
   } else {
     renderFns = defaultOptions.renderFns;
   }
-  
+
+  const binding = { keyPrefix, valueFns, renderFns };
+  return template.bind({ binding });
+}
+
+/**
+ * Tagged template literal function
+ * @param {string[]} strings
+ * @param {any[]} keys
+ * @returns {((context:Object) => string)}
+ */
+function template (strings, ...keys) {
+  const binding = Object.assign(this.binding, { strings, keys });
+  return render.bind({ binding });
+}
+
+/**
+ * Render template to string using context data
+ * @param {Object} context - Data to render in the template`
+ */
+function render (context = {}) {
+  const { strings, keys, keyPrefix, valueFns, renderFns } = this.binding;
   /**
-   * Tagged template literal function
-   * @param {string[]} strings
-   * @param {any[]} keys
-   * @returns {((context:Object) => string)}
+   * Raw rendered string without middleware functions ran
    */
-  function taggedTemplate (strings, ...keys) {
-    /**
-     * Render template to string using context data
-     * @param {Object} context - Data to render in the template`
-     */
-    function render (context = {}) {
+  const rawRenderedString = keys
+    .reduce((result, key, index) => {
       /**
-       * Raw rendered string without middleware functions ran
+       * Regex pattern to test for key prefix
        */
-      const rawRenderedString = keys
-        .reduce((result, key, index) => {
-          /**
-           * Regex pattern to test for key prefix
-           */
-          const keyPrefixPattern = new RegExp(`^${keyPrefix}`);
-          
-          /**
-           * Key with key prefix removed
-           */
-          let contextKey = keyPrefixPattern
-            .test(key) ? key.substring(keyPrefix.length) : key;
-            
-          /**
-           * Raw value not processed through value middleware functions
-           */
-          const rawValue = context[contextKey] || key;
-          
-          /**
-           * Value processed through value middleware functions
-           */
-          const value = valueFns
-            .filter(fn => typeof fn === 'function')
-            .reduce((value, fn) => fn(value), rawValue);
-          
-          return [...result, value, strings[index + 1]];
-        }, [strings[0]])
-        .join('');
+      const keyPrefixPattern = new RegExp(`^${keyPrefix}`);
       
       /**
-       * Raw rendered string processed through render middleware functions
+       * Key with key prefix removed
        */
-      const renderedString = renderFns
-        .filter(fn => typeof fn === 'function')
-        .reduce((result, fn) => fn(result), rawRenderedString);
+      let contextKey = keyPrefixPattern
+        .test(key) ? key.substring(keyPrefix.length) : key;
         
-      return renderedString;
-    }
-    
-    return render;
-  }
+      /**
+       * Raw value not processed through value middleware functions
+       */
+      const rawValue = context[contextKey] || key;
+      
+      /**
+       * Value processed through value middleware functions
+       */
+      const value = valueFns
+        .filter(fn => typeof fn === 'function')
+        .reduce((value, fn) => fn(value), rawValue);
+      
+      return [...result, value, strings[index + 1]];
+    }, [strings[0]])
+    .join('');
   
-  return taggedTemplate;
+  /**
+   * Raw rendered string processed through render middleware functions
+   */
+  const renderedString = renderFns
+    .filter(fn => typeof fn === 'function')
+    .reduce((result, fn) => fn(result), rawRenderedString);
+    
+  return renderedString;
 }
