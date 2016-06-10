@@ -1,11 +1,13 @@
 import defaultOptions from './defaultOptions';
 
 /**
- * templateFactory
- * Returns a new template function with defined middleware applied
- * @param {(() => string)[]} valueFns - Value middleware functions
- * @param {(() => string)[]} renderFns - Render middleware functions
- * @param {string} keyPrefix - String prefix for keys in template
+ * factory
+ * Returns a new template function with options applied
+ * @param {Object} options
+ * @param {boolean} options.mergeMiddleware If middleware defined in options should be merged with defaults. Default: false
+ * @param {string} options.keyPrefix String prefix of keys in template. Default: @
+ * @param {function[]} options.valueFns Array of functions to apply to values during render
+ * @param {function[]} options.renderFns Array of functions to apply to the final render
  */
 export default function factory (options = {}) {
   const mergeMiddleware = options.mergeMiddleware || defaultOptions.mergeMiddleware;
@@ -38,10 +40,11 @@ export default function factory (options = {}) {
 }
 
 /**
+ * template
  * Tagged template literal function
  * @param {string[]} strings
  * @param {any[]} keys
- * @returns {((context:Object) => string)}
+ * @returns {function}
  */
 function template (strings, ...keys) {
   const binding = Object.assign(this.binding, { strings, keys });
@@ -49,6 +52,7 @@ function template (strings, ...keys) {
 }
 
 /**
+ * render
  * Render template to string using context data
  * @param {Object} context - Data to render in the template`
  */
