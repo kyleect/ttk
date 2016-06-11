@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register",
+    "test": "mocha --recursive --compilers js:babel-register",
     "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-register",
     "clean": "rm -rf build",
     "compile": "babel src -d build -R spec"

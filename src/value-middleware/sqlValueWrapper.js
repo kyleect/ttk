@@ -3,7 +3,7 @@
  */
 export default function sqlValueWrapper (value) {
   const wrapString = (value) => `'${value}'`;
-  const wrapArray = (value) => `(${value.join(',')})`;
+  const wrapArray = (value) => `(${value.map(v => sqlValueWrapper(v)).join(', ')})`;
   const wrapNumber = (value) => value;
   const wrapToString = (value) => wrapString(value.toString());
   

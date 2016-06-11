@@ -1,7 +1,7 @@
 import {describe, it } from 'mocha';
 import {expect} from 'chai';
 
-import sqlValueWrapper from '../src/value-middleware/sqlValueWrapper';
+import sqlValueWrapper from '../../src/value-middleware/sqlValueWrapper';
 
 describe('sqlValueWrapper(text)', () => {
   it('wraps strings in quotations', () => {
@@ -9,7 +9,7 @@ describe('sqlValueWrapper(text)', () => {
   });
 
   it('wraps arrays as comma seperated list in paranthesis', () => {
-    expect(sqlValueWrapper(['a', 'b', 1])).to.equal(`(a,b,1)`);
+    expect(sqlValueWrapper(['a', 'b', 1])).to.equal(`('a', 'b', 1)`);
   });
   
   it('does not wrap numbers', () => {
