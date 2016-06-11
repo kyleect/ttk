@@ -1,8 +1,15 @@
 {
   "name": "ttk",
   "version": "0.1.0",
-  "description": "",
+  "description": "String template literals plus.",
   "main": "build/index.js",
+  "files": [
+    "src",
+    "build",
+    "test",
+    ".babelrc",
+    ".gitignore"
+  ],
   "scripts": {
     "test": "mocha --recursive --compilers js:babel-register",
     "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-register",
@@ -11,8 +18,8 @@
     "compile": "babel src -d build -R spec",
     "prepublish": "npm run compile"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Maex Software",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
