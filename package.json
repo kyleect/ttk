@@ -1,6 +1,6 @@
 {
   "name": "ttk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "String template literals plus.",
   "main": "build/index.js",
   "files": [
