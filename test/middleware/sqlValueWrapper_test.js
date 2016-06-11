@@ -1,7 +1,7 @@
 import {describe, it } from 'mocha';
 import {expect} from 'chai';
 
-import sqlValueWrapper from '../../src/value-middleware/sqlValueWrapper';
+import { sqlValueWrapper } from '../../src/middleware/value';
 
 describe('sqlValueWrapper(text)', () => {
   it('wraps strings in quotations', () => {

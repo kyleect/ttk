@@ -1,4 +1,4 @@
-import multilineStringTrim from './render-middleware/multilineStringTrim';
+import { multilineStringTrim } from './middleware/render';
 
 export default {
   mergeMiddleware: false,

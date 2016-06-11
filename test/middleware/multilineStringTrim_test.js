@@ -1,7 +1,7 @@
 import {describe, it } from 'mocha';
 import {expect} from 'chai';
 
-import multilineStringTrim from '../../src/render-middleware/multilineStringTrim';
+const { multilineStringTrim } = require('../../src/middleware/render');
 
 describe('multilineStringTrim(text)', () => {
   it('trims multiline string', () => {

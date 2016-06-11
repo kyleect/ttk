@@ -1,7 +1,7 @@
 import {describe, it } from 'mocha';
 import {expect} from 'chai';
 
-import { default as factory } from '../src';
+import { factory } from '../src';
 
 describe('factory', () => {
   it('is a function', () => {
