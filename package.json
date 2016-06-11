@@ -1,13 +1,15 @@
 {
-  "name": "tagged-template",
-  "version": "1.0.0",
+  "name": "@maexsoftware/ttk",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "mocha --recursive --compilers js:babel-register",
     "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-register",
     "clean": "rm -rf build",
-    "compile": "babel src -d build -R spec"
+    "precompile": "npm run clean",
+    "compile": "babel src -d build -R spec",
+    "prepublish": "npm run compile"
   },
   "author": "",
   "license": "ISC",
