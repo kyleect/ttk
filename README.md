@@ -50,7 +50,7 @@ Array of middleware functions that the final render string is processed through.
 ```js
 const ttk = require('ttk');
 
-const sql = ttk({
+const sql = ttk.factory({
   valueFns: [ttk.middleware.value.sqlValueWrapper]
 });
 
