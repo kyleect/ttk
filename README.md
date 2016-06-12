@@ -5,9 +5,9 @@ String template literals plus.
 ## Basic Usage
 
 ```js
-import { default as ttk } from '@maexsoftware/ttk'
+const ttk = require('ttk');
 
-const t = ttk();
+const t = ttk.factory();
 const render = t`Hello, ${'@name'}!`;
 
 render({ name: 'World' }); // Hello, World!
@@ -20,9 +20,9 @@ render({ name: 'World' }); // Hello, World!
 String prefix to identify the context value placeholders in the template.
 
 ```js
-import { default as ttk } from '@maexsoftware/ttk'
+const ttk = require('ttk');
 
-const t = ttk({
+const t = ttk.factory({
   keyPrefix: '#'
 });
 
@@ -48,11 +48,10 @@ Array of middleware functions that the final render string is processed through.
 ### SQL Queries with sqlValueWrapper
 
 ```js
-import { default as ttk } from '@maexsoftware/ttk'
-import sqlValueWrapper from '@maexsoftware/ttk/value-middleware'
+const ttk = require('ttk');
 
 const sql = ttk({
-  valueFns: [sqlValueWrapper]
+  valueFns: [ttk.middleware.value.sqlValueWrapper]
 });
 
 const render = sql`
