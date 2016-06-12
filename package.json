@@ -1,8 +1,11 @@
 {
   "name": "ttk",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "String template literals plus.",
-  "keyword": ["template literal", "template"],
+  "keyword": [
+    "template literal",
+    "template"
+  ],
   "author": "Maex Software",
   "contributors": [
     {
