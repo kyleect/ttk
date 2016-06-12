@@ -23,6 +23,7 @@
     "url": "https://github.com/maexsoftware/ttk/issues"
   },
   "main": "build/index.js",
+  "typings": "src/ttk.d.ts",
   "files": [
     "src",
     "build",
