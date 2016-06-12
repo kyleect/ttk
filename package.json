@@ -36,7 +36,7 @@
     "clean": "rm -rf build",
     "precompile": "npm run clean",
     "compile": "babel src -d build -R spec",
-    "prepublish": "npm run compile"
+    "prepublish": "npm test && npm run compile"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
