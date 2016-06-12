@@ -2,6 +2,12 @@
 
 String template literals plus.
 
+## Installation
+
+```sh
+$ npm install --save ttk
+```
+
 ## Basic Usage
 
 ```js
