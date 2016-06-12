@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/maexsoftware/ttk.svg?branch=master)](https://travis-ci.org/maexsoftware/ttk)
+
 # TTK <small>Template Tool Kit</small>
 
 String template literals plus.
