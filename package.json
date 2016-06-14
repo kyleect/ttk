@@ -1,6 +1,6 @@
 {
   "name": "ttk",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "String template literals plus.",
   "keyword": [
     "template literal",
