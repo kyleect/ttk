@@ -29,17 +29,17 @@ declare module 'ttk' {
     multilineStringTrim:middlewareFn;
   }
 
-  type factoryFn = (options:factoryOptions) => templateFn;
-  type templateFn = (strings:string[], keys?:any[]) => renderFn;
-  type renderFn = (context:Object) => string;
+  type factory = (options:factoryOptions) => template;
+  type template = (strings:string[], keys?:any[]) => render;
+  type render = (context:Object) => string;
   
   interface ttk {
     /** Returns a new template function with options applied */
-    factory:factoryFn;
+    factory:factory;
     /** Tagged template literal function */
-    template:templateFn;
+    template:template;
     /** Render template to string using context data */
-    render:renderFn;
+    render:render;
     /** Default options for factory */
     defaultOptions: defaultOptions;
     
